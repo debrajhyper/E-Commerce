@@ -4,19 +4,36 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
 
 ## 😍 UI
 
+
+
 <p align="center">
-  <img src="./thumbnail/image10.png"width="410"/>
-  <img src="./thumbnail/image9.png"width="410"/>
+  <p>Homepage & 404 error page</p>
+  <img src="./thumbnail/image3.png" width="410"/>
+  <img src="./thumbnail/image17.png"width="410"/>
+  <p>Login & Signup Page</p>
+  <img src="./thumbnail/image4.png" width="410"/>
+  <img src="./thumbnail/image5.png" width="410"/>
+  <p>Login & Signup form validation</p>
+  <img src="./thumbnail/image7.png" width="410"/>
+  <img src="./thumbnail/image6.png" width="410"/>
+  <p>Buyer & Seller dashboard Page</p>
+  <img src="./thumbnail/image13.png"width="410"/>
+  <img src="./thumbnail/image8.png" width="410"/>
+  <p>Advance search functionality for product name & category</p>
+  <img src="./thumbnail/image14.png"width="410"/>
+  <img src="./thumbnail/image15.png"width="410"/>
+  <p>Fallback loading UI</p>
   <img src="./thumbnail/image1.png" width="410"/>
   <img src="./thumbnail/image2.png" width="410"/>
-  <img src="./thumbnail/image3.png"width="410"/>
-  <img src="./thumbnail/image6.png" width="410"/>
+  <p>Unauthorize access page for protected routes & Buyer cart page</p>
+  <img src="./thumbnail/image18.png"width="410"/>
+  <img src="./thumbnail/image16.png" width="410"/>
+  <p>Seller Add & Edit product page</p>
+  <img src="./thumbnail/image9.png" width="410"/>
   <img src="./thumbnail/image11.png"width="410"/>
+  <p>Add & Edit product form fields with custom validation</p>
+  <img src="./thumbnail/image10.png"width="410"/>
   <img src="./thumbnail/image12.png"width="410"/>
-  <img src="./thumbnail/image8.png"width="410"/>
-  <img src="./thumbnail/image7.png"width="410"/>
-  <img src="./thumbnail/image4.png"width="410"/>
-  <img src="./thumbnail/image5.png" width="410"/>
 </p>
 
 ## 🕹️ Tech Stack
@@ -74,6 +91,7 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
 - Buyer can have the flexibility for add to card with quantity directly from product card.
 - Remove items or adjust quantities directly from the cart table.
 - Persistent cart that saves items for logged-in users across sessions.
+- Added cart notification dot with cart count for real time updates.
 
 ### Responsive Design
 
