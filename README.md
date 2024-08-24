@@ -13,29 +13,45 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
   <img src="./thumbnail/image17.png"width="410"/>
   </p>
   <p>Login & Signup Page</p>
-  <img src="./thumbnail/image4.png" width="405"/>
-  <img src="./thumbnail/image5.png" width="405"/>
+  <p>
+  <img src="./thumbnail/image4.png" width="410"/>
+  <img src="./thumbnail/image5.png" width="410"/>
+  </p>
   <p>Login & Signup form validation</p>
-  <img src="./thumbnail/image7.png" width="405"/>
-  <img src="./thumbnail/image6.png" width="405"/>
+  <p>
+  <img src="./thumbnail/image7.png" width="410"/>
+  <img src="./thumbnail/image6.png" width="410"/>
+  </p>
   <p>Buyer & Seller dashboard Page</p>
-  <img src="./thumbnail/image13.png"width="405"/>
-  <img src="./thumbnail/image8.png" width="405"/>
+  <p>
+  <img src="./thumbnail/image13.png"width="410"/>
+  <img src="./thumbnail/image8.png" width="410"/>
+  </p>
   <p>Advance search functionality for product name & category</p>
-  <img src="./thumbnail/image14.png"width="405"/>
-  <img src="./thumbnail/image15.png"width="405"/>
+  <p>
+  <img src="./thumbnail/image14.png"width="410"/>
+  <img src="./thumbnail/image15.png"width="410"/>
+  </p>
   <p>Fallback loading UI</p>
-  <img src="./thumbnail/image1.png" width="405"/>
-  <img src="./thumbnail/image2.png" width="405"/>
+  <p>
+  <img src="./thumbnail/image1.png" width="410"/>
+  <img src="./thumbnail/image2.png" width="410"/>
+  </p>
   <p>Unauthorize access page for protected routes & Buyer cart page</p>
-  <img src="./thumbnail/image18.png"width="405"/>
-  <img src="./thumbnail/image16.png" width="405"/>
+  <p>
+  <img src="./thumbnail/image18.png"width="410"/>
+  <img src="./thumbnail/image16.png" width="410"/>
+  </p>
   <p>Seller Add & Edit product page</p>
-  <img src="./thumbnail/image9.png" width="405"/>
-  <img src="./thumbnail/image11.png"width="405"/>
+  <p>
+  <img src="./thumbnail/image9.png" width="410"/>
+  <img src="./thumbnail/image11.png"width="410"/>
+  </p>
   <p>Add & Edit product form fields with custom validation</p>
-  <img src="./thumbnail/image10.png"width="405"/>
-  <img src="./thumbnail/image12.png"width="405"/>
+  <p>
+  <img src="./thumbnail/image10.png"width="410"/>
+  <img src="./thumbnail/image12.png"width="410"/>
+  </p>
 </p>
 
 ## 🕹️ Tech Stack
