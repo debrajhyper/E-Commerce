@@ -8,8 +8,10 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
 
 <p align="center">
   <p>Homepage & 404 error page</p>
-  <img src="./thumbnail/image3.png" width="405"/>
-  <img src="./thumbnail/image17.png"width="405"/>
+  <p>
+  <img src="./thumbnail/image3.png" width="410"/>
+  <img src="./thumbnail/image17.png"width="410"/>
+  </p>
   <p>Login & Signup Page</p>
   <img src="./thumbnail/image4.png" width="405"/>
   <img src="./thumbnail/image5.png" width="405"/>
