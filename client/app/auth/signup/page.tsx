@@ -1,24 +1,25 @@
 'use client'
 
-import { z } from "zod"
-import Image from 'next/image'
-import { useState } from 'react'
-import { AxiosError } from 'axios'
-import { Loader2 } from "lucide-react"
-import { apiClient } from '@/lib/axios'
-import { useRouter } from 'next/navigation'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { ErrorAlert } from '@/components/ErrorAlert'
-import { useToast } from "@/components/ui/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { SignupFormSchema } from '@/utils/FormSchema'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { useForm, ControllerRenderProps, FieldValues } from 'react-hook-form'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { USER_ROLE_BUYER, EMPTY_STR, USER_ROLE_SELLER, API_SIGNUP_URL, API_DEFAULT_ERROR_MESSAGE, LOGIN_LINK } from '@/constants'
-
+import { z } from "zod";
+import Image from 'next/image';
+import { useState } from 'react';
+import { AxiosError } from 'axios';
+import { Loader2 } from "lucide-react";
+import { apiClient } from '@/lib/axios';
+import { useRouter } from 'next/navigation';
+import buyerImage from '@/image/buyer.png';
+import sellerImage from '@/image/seller.png';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { ErrorAlert } from '@/components/ErrorAlert';
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SignupFormSchema } from '@/utils/FormSchema';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useForm, ControllerRenderProps, FieldValues } from 'react-hook-form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { USER_ROLE_BUYER, EMPTY_STR, USER_ROLE_SELLER, API_SIGNUP_URL, API_DEFAULT_ERROR_MESSAGE, LOGIN_LINK } from '@/constants';
 /**
  * Signup page component
  */
@@ -151,12 +152,12 @@ export default function SignupPage() {
                                     <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="grid grid-cols-3 gap-4" {...field}>
                                         <Label htmlFor={USER_ROLE_BUYER} className="radioLabel">
                                             <RadioGroupItem value={USER_ROLE_BUYER} id={USER_ROLE_BUYER} className="sr-only" />
-                                            <Image src="/buyer.png" alt="buyer" width={80} height={100} className='h-20' />
+                                            <Image src={buyerImage} alt="buyer image" width={80} height={100} className='h-20 w-auto object-contain' />
                                             Buyer
                                         </Label>
                                         <Label htmlFor={USER_ROLE_SELLER} className="radioLabel">
                                             <RadioGroupItem value={USER_ROLE_SELLER} id={USER_ROLE_SELLER} className="sr-only" />
-                                            <Image src="/seller.png" alt="seller" width={60} height={100} className='h-16' />
+                                            <Image src={sellerImage} alt="seller image" width={60} height={100} className='h-16 w-auto object-contain' />
                                             Seller
                                         </Label>
                                     </RadioGroup>

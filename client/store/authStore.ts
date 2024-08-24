@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { jwtDecode } from "jwt-decode";
-import { EMPTY_STR, STORE_NAME } from '@/constants';
+import { EMPTY_STR, AUTH_STORE_NAME } from '@/constants';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 /**
@@ -67,7 +67,7 @@ export const useAuthStore = create<AuthState>()(
             },
         }),
         {
-            name: STORE_NAME,
+            name: AUTH_STORE_NAME,
             storage: createJSONStorage(() => sessionStorage),
         }
     )

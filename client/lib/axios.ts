@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { verifyToken } from '@/helpers/authHelper';
-import { STORE_NAME } from '@/constants';
+import { AUTH_STORE_NAME } from '@/constants';
 
 /**
  * Create an instance of axios with the base URL set to the API base URL
@@ -17,7 +17,7 @@ apiClient.interceptors.request.use((config) => {
     /**
      * Get the token from session storage
      */
-    const token = JSON.parse(sessionStorage.getItem(STORE_NAME) || '{}')?.state?.token;
+    const token = JSON.parse(sessionStorage.getItem(AUTH_STORE_NAME) || '{}')?.state?.token;
 
     /**
      * Check if the token is valid
@@ -38,7 +38,7 @@ apiClient.interceptors.request.use((config) => {
         /**
          * Remove the token from session storage and the cookie
          */
-        sessionStorage.removeItem(STORE_NAME);
+        sessionStorage.removeItem(AUTH_STORE_NAME);
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
     return config;

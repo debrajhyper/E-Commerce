@@ -9,6 +9,7 @@ import { useAuthStore } from "@/store/authStore";
 import { USER_ROLE_BUYER } from '../constants/index';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { API_CART_URL, API_DEFAULT_ERROR_MESSAGE, API_PRODUCTS_URL, SELLER_EDIT_PRODUCT_LINK, USER_ROLE_SELLER } from "@/constants";
+import { useCartStore } from "@/store/cartStore";
 
 /**
  * Component for rendering a single product card
@@ -16,10 +17,14 @@ import { API_CART_URL, API_DEFAULT_ERROR_MESSAGE, API_PRODUCTS_URL, SELLER_EDIT_
  * @returns {ReactElement} The rendered product card component
  */
 export default function ProductCard({ product }: { product: Product }) {
+    // Destructure the product data
     const { id, name, category, description, price, discount } = product;
 
-    // get the current user's role from the token
+    // Get the user's role from the auth store
     const { getRoleFromToken } = useAuthStore(state => state);
+    const { updateCartItemCount } = useCartStore(state => state);
+
+    // User's role will be null if the user is not logged in
     const role = getRoleFromToken();
 
     // state for the quantity input
@@ -63,13 +68,12 @@ export default function ProductCard({ product }: { product: Product }) {
         try {
             // call the API to add the product to the cart
             const response = await apiClient.post(API_CART_URL, { productId, quantity });
-            const { message } = response.data
-
+            const { message, cartItemCount } = response.data;
+            updateCartItemCount(cartItemCount);
             // show the message to the user using the toast function
             toast({ title: message });
         } catch (err) {
             const error = err as AxiosError<ErrorResponseData>;
-
             // show the error message to the user using the toast function
             toast({ title: error?.response?.data?.error || API_DEFAULT_ERROR_MESSAGE });
         }
@@ -80,31 +84,31 @@ export default function ProductCard({ product }: { product: Product }) {
         It contains the product name, category, description, price, discount, and buttons to edit or delete the product
     */}
     return (
-        <Card className="w-full max-w-sm mx-auto flex flex-col justify-end items-start p-4" >
+        <Card className="w-full max-w-sm mx-auto flex flex-col justify-end items-start p-4">
             {/*
                 The content of the card, contains the product name, category, description, price, and discount
             */}
-            < CardContent className="w-full h-full px-0" >
+            <CardContent className="w-full h-full px-0">
                 {/*
                     The product name
                 */}
-                <h3 title={name} className="text-2xl font-extrabold line-clamp-1" > {name}</h3 >
+                <h3 title={name} className="text-2xl font-extrabold line-clamp-1">{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
                 {/*
                     The product category
                 */}
-                <p className="text-sm text-gray-500" > {category}</p >
+                <p title={category} className="text-sm text-gray-500">{category}</p>
                 {/*
                     The product description
                 */}
-                <p className="mt-2" > {description}</p >
+                <p title={description} className="mt-2 line-clamp-2">{description}</p>
                 {/*
                     The product price
                 */}
-                <p className="mt-2 text-lg font-bold" >₹{price}</p >
+                <p title={`₹${price}`} className="mt-2 text-lg font-bold">₹{price}</p>
                 {/*
                     The product discount
                 */}
-                <p className="text-xs font-semibold text-green-600" > {discount} % off</p >
+                <p title={`${discount}% off`} className="text-xs font-semibold text-green-600">{discount}% off</p>
             </CardContent >
             {/*
                 The footer of the card, contains the buttons to edit or delete the product

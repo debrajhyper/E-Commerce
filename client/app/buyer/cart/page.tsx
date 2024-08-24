@@ -3,7 +3,9 @@
 import { AxiosError } from "axios";
 import { Trash2 } from "lucide-react";
 import { apiClient } from "@/lib/axios";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/store/cartStore";
 import { toast } from "@/components/ui/use-toast";
 import { useFetchProducts } from '@/hooks/useFetch';
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,7 +22,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
  * @returns {JSX.Element} The cart page component
  */
 export default function CartPage() {
+    // get the data array, set data array function, and loading state from the useFetchProducts hook
+    // it fetches the products from the cart API endpoint
     const { dataArray, setDataArray, loading } = useFetchProducts(API_CART_URL);
+
+    // get the update cart item count function from the cart store
+    // it is used to update the cart item count in the store
+    const { updateCartItemCount } = useCartStore(state => state);
+
+    // get the router from the useRouter hook
+    // it is used to navigate to the checkout page
+    const router = useRouter();
 
     /**
      * Function to remove an item from the cart
@@ -28,12 +40,22 @@ export default function CartPage() {
      */
     const removeItemFromCart = async (id: number | undefined) => {
         try {
+            // call the API to remove the item from the cart
             const response = await apiClient.delete(`${API_CART_URL}${id}`);
-            const { message } = response.data
+            const { message, cartItemCount } = response.data;
+
+            // update the cart item count in the store
+            updateCartItemCount(cartItemCount);
+
+            // show a toast message to the user
             toast({ title: message });
+
+            // reload the page to reflect the changes
             location.reload();
         } catch (err) {
+            // handle the error
             const error = err as AxiosError<ErrorResponseData>;
+            // show an error message to the user if the API call fails
             toast({ title: error?.response?.data?.error || API_DEFAULT_ERROR_MESSAGE });
         }
     };
@@ -124,9 +146,12 @@ export default function CartPage() {
                     }
                 </TableBody>
             </Table>
-            <div className="text-right mt-12">
-                <p className="text-xl font-semibold">Total: ₹{totalPrice.toFixed(2)}</p>
-                <Button className="mt-2" onClick={handleCheckout}>Proceed to Checkout</Button>
+            <div className="flex justify-between items-end mt-12">
+                <Button variant="outline" className="mt-2" onClick={() => router.back()}>Continue Shopping</Button>
+                <div className="text-right">
+                    <p className="text-xl font-semibold">Total: ₹{totalPrice.toFixed(2)}</p>
+                    <Button className="mt-2" onClick={handleCheckout}>Proceed to Checkout</Button>
+                </div>
             </div>
         </div>
     );

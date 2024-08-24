@@ -1,5 +1,38 @@
 const { pool } = require('../config/database');
 
+
+/**
+ * Helper function to get the count of unique items in a user's cart
+ * @function getUniqueCartItemCount
+ * @param {string} userId - The ID of the user
+ * @returns {Promise<number>} - The count of unique items in the cart
+ */
+async function getUniqueCartItemCount(userId) {
+    const result = await pool.query(
+        'SELECT COUNT(DISTINCT product_id) as total_items FROM cart WHERE user_id = $1',
+        [userId]
+    );
+    return parseInt(result.rows[0].total_items) || 0;
+}
+
+
+/**
+ * GET /cart/count
+ * @function getCartItemCount
+ * @param {object} req.user - User object with role and ID
+ * @returns {object} - Total number of items in the cart
+ */
+exports.getCartItemCount = async (req, res) => {
+    const { id: userId } = req.user;
+    try {
+        const totalItems = await getUniqueCartItemCount(userId);
+        res.json({ cartItemCount: totalItems });
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching cart item count' });
+    }
+};
+
+
 /**
  * POST /cart
  * @function addToCart
@@ -40,8 +73,11 @@ exports.addToCart = async (req, res) => {
             [userId, productId, quantity]
         );
 
+        // After successfully adding the item, fetch the updated unique item count
+        const totalItems = await getUniqueCartItemCount(userId);
+
         // Return success message
-        res.status(201).json({ message: 'Item added to cart successfully' });
+        res.status(201).json({ message: 'Item added to cart successfully', cartItemCount: totalItems });
     } catch (error) {
         // Handle unexpected error
         res.status(500).json({ error: 'Error adding to cart' });
@@ -75,8 +111,11 @@ exports.removeFromCart = async (req, res) => {
             return res.status(404).json({ error: 'Cart item not found or unauthorized' });
         }
 
+        // After successfully removing the item, fetch the updated unique item count
+        const totalItems = await getUniqueCartItemCount(userId);
+
         // Return success message
-        res.json({ message: 'Item removed from cart successfully' });
+        res.json({ message: 'Item removed from cart successfully', cartItemCount: totalItems });
     } catch (error) {
         // Handle unexpected error
         res.status(500).json({ error: 'Error removing from cart' });

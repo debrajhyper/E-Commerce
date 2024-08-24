@@ -6,3 +6,8 @@ type AuthState = {
     verifyToken: () => boolean;
     getRoleFromToken: () => string | null;
 }
+
+type CartState = {
+    cartItemCount: number;
+    updateCartItemCount: (newCartItemCount: number) => void;
+}
