@@ -4,7 +4,7 @@
  * @module routes/auth
  * @requires express
  * @requires ../controllers/authController
- */
+*/
 const express = require('express');
 const { signup, login } = require('../controllers/authController');
 

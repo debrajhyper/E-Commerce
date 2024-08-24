@@ -1,22 +1,25 @@
-# E-commerce Full Stack Application
+# 🛍️ E-commerce Full Stack Application
 
 This is a comprehensive e-commerce full-stack application built using Next.js for the frontend and Node.js with Express.js for the backend. It provides functionality for user authentication, seller product management, and buyer shopping experience.
 
 ## 😍 UI
 
 <p align="center">
+  <img src="./thumbnail/image10.png"width="410"/>
+  <img src="./thumbnail/image9.png"width="410"/>
   <img src="./thumbnail/image1.png" width="410"/>
   <img src="./thumbnail/image2.png" width="410"/>
   <img src="./thumbnail/image3.png"width="410"/>
   <img src="./thumbnail/image6.png" width="410"/>
-  <img src="./thumbnail/image4.png"width="410"/>
-  <img src="./thumbnail/image5.png" width="410"/>
+  <img src="./thumbnail/image11.png"width="410"/>
+  <img src="./thumbnail/image12.png"width="410"/>
   <img src="./thumbnail/image8.png"width="410"/>
   <img src="./thumbnail/image7.png"width="410"/>
-    <img src="./thumbnail/image9.png"width="410"/>
+  <img src="./thumbnail/image4.png"width="410"/>
+  <img src="./thumbnail/image5.png" width="410"/>
 </p>
 
-## Tech Stack
+## 🕹️ Tech Stack
 
 ### Frontend
 - Next.js 14.2.6
@@ -41,15 +44,18 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
   - cors (for handling Cross-Origin Resource Sharing)
   - dotenv (for environment variable management)
 
-## Features
+## 🎉 Features
 
-### User Authentication
-- Users can create accounts as either sellers or buyers.
-- Password strength requirements enforced for enhanced security.
-- Distinct user roles (seller and buyer) with different permissions and access levels.
+### User Authentication & Authorization
+- Role based dynamic routes based on user login.
 - JSON Web Tokens (JWT) used for maintaining user sessions.
 - Tokens securely stored on the client-side for persistent authentication.
+- Distinct user roles (seller and buyer) with different permissions and access levels.
+- Users can create accounts as either sellers or buyers.
+- Custom form validation enforced for enhanced security.
 - Passwords hashed using bcrypt before storage in the database.
+- Handled Unauthorized access for all roles.
+- Seamless one click logout feature.
 
 ### Seller Functionality
 - Sellers can easily add new products with detailed information:
@@ -59,11 +65,14 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
   - Price setting with discount
 - Edit existing product details and update information in real-time.
 - Remove products from the marketplace with safeguards against accidental deletion.
+- Have access for his own added products only.
 
 ### Buyer Functionality
 - Search functionality allowing users to find products by name or category.
-- Sort results automatically by acceding order.
-- Remove items or adjust quantities directly from the cart.
+- Implemented advance debounced search functionality for better UI rendering. 
+- Sort results automatically by acceding order on every request.
+- Buyer can have the flexibility for add to card with quantity directly from product card.
+- Remove items or adjust quantities directly from the cart table.
 - Persistent cart that saves items for logged-in users across sessions.
 
 ### Responsive Design
@@ -75,43 +84,47 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
 
 - HTTPS encryption for all data transmissions.
 - CSRF protection for form submissions.
-- Rate limiting to prevent brute-force attacks.
 - Input validation and sanitization to prevent SQL injection and XSS attacks.
 
-## Best Practices
+## 🪄 Best Practices
 
-- **Input Validation**: All user inputs are validated and sanitized using Zod before being processed or stored in the database.
-- **Routing**: Next.js file-based routing system is used effectively, with dynamic routes implemented where necessary.
-- **Responsiveness**: The application is designed to be responsive across various devices and screen sizes using Tailwind CSS.
-- **Error Handling**: Proper error handling is implemented for various scenarios, with clear and meaningful error messages returned to the client.
-- **Code Quality**: The codebase maintains high standards of readability and maintainability, with appropriate comments explaining complex logic.
-- **Security**: Best practices for security are followed, including secure authentication with JWT and bcrypt for password hashing.
-- **State Management**: Zustand is used for efficient and scalable state management on the frontend.
-- **Form Handling**: react-hook-form is utilized for efficient and performant form handling.
-- **API Requests**: Axios is used for making HTTP requests, providing a consistent interface for both browser and node.js environments.
-- **UI Components**: Radix UI is used for accessible and customizable UI components.
+- [✔️] **Input Validation**: All user inputs are validated and sanitized using Zod before being processed or stored in the database.
+- [✔️] **Routing**: Next.js file-based routing system is used effectively, with dynamic routes implemented where necessary.
+- [✔️] **Responsiveness**: The application is designed to be responsive across various devices and screen sizes using Tailwind CSS.
+- [✔️] **Error Handling**: Proper error handling is implemented for various scenarios, with clear and meaningful error messages returned to the client.
+- [✔️] **Code Quality**: The codebase maintains high standards of readability and maintainability, with appropriate comments explaining complex logic.
+- [✔️] **Security**: Best practices for security are followed, including secure authentication with JWT and bcrypt for password hashing.
+- [✔️] **State Management**: Zustand is used for efficient and scalable state management on the frontend.
+- [✔️] **Form Handling**: react-hook-form is utilized for efficient and performant form handling.
+- [✔️] **API Requests**: Axios is used for making HTTP requests, providing a consistent interface for both browser and node.js environments.
+- [✔️] **UI Components**: Shadcn UI is used for accessible and customizable UI components.
 
-## Setup Instructions
+## 📦 Setup Instructions
 
 ### Frontend Setup
 
 1. Clone and navigate to the client directory:
-   ```bash
-    git clone https://github.com/debrajhyper/E-Commerce.git
+    ```bash
+    git clone https://github.com/debrajhyper/e-commerce.git
     cd e-commerce/client
-   ```
+    ```
 
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
+3. Create a .env file in the root of the client directory and add:
+    ```bash
+    API_BASE_URL=http://localhost:5000/api // Backend server URL
+    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+4. Run the development server:
+    ```bash
+    npm run dev
+    ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ### Backend Setup
 
@@ -135,6 +148,7 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
     JWT_SECRET=JWT_SECRET
     AUTH_ROLE_BUYER=buyer
     AUTH_ROLE_SELLER=seller
+    PORT=5000
    ```
 
 4. Set up your PostgreSQL database and update the connection string in `.env`.
@@ -144,7 +158,7 @@ This is a comprehensive e-commerce full-stack application built using Next.js fo
    node serve.js
    ```
 
-## API Documentation
+## 📃 API Documentation
 
 ### Authentication
 
@@ -282,7 +296,7 @@ Request body:
 Remove a product from the cart.
 
 
-## Project Structure
+## 🗃️ Project Structure
 
 ### Frontend (Next.js)
 ```

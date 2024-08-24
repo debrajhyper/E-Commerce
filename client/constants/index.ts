@@ -13,7 +13,6 @@ export const SELLER_EDIT_PRODUCT_LINK = '/seller/edit-product';
 export const BUYER_DASHBOARD_LINK = '/buyer/dashboard';
 export const BUYER_CART_LINK = '/buyer/cart';
 export const STORE_NAME = 'auth-storage';
-export const API_BASE_URL = 'http://localhost:5000/api';
 export const API_LOGIN_URL = '/auth/login';
 export const API_SIGNUP_URL = '/auth/signup';
 export const API_PRODUCTS_URL = '/products/';

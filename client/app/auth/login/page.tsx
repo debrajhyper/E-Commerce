@@ -14,7 +14,7 @@ import { LoginFormSchema } from '@/utils/FormSchema'
 import { ErrorAlert } from '@/components/ErrorAlert'
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { API_DEFAULT_ERROR_MESSAGE, API_LOGIN_URL, EMPTY_STR } from '@/constants'
+import { API_DEFAULT_ERROR_MESSAGE, API_LOGIN_URL, EMPTY_STR, LOGIN_LINK, USER_ROLE_BUYER, USER_ROLE_SELLER } from '@/constants'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from '@/components/ui/form'
 
 /**
@@ -64,9 +64,13 @@ export default function LoginPage() {
             const { message, token } = response.data
             toast({ title: message })
             login(token)
-            document.cookie = `token=${token};`;
             const role = getRoleFromToken();
-            router.push(`/${role}/dashboard`);
+            if (role === USER_ROLE_BUYER || role === USER_ROLE_SELLER) {
+                document.cookie = `token=${token};`;
+                router.push(`/${role}/dashboard`);
+            } else {
+                router.push(LOGIN_LINK);
+            }
         } catch (err) {
             const error = err as AxiosError<ErrorResponseData>;
             setError(error?.response?.data?.error || API_DEFAULT_ERROR_MESSAGE);

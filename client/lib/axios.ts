@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { verifyToken } from '@/helpers/authHelper';
-import { API_BASE_URL, STORE_NAME } from '@/constants';
+import { STORE_NAME } from '@/constants';
 
 /**
  * Create an instance of axios with the base URL set to the API base URL
  */
 export const apiClient = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: process.env.API_BASE_URL,
 });
 
 /**

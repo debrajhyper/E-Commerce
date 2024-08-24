@@ -26,9 +26,9 @@ export default function Header() {
      * Logs the user out and redirects them to the login page.
      */
     const handleLogout = () => {
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         logout();
         router.push(LOGIN_LINK);
-        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
 
     return (

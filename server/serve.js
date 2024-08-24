@@ -41,8 +41,13 @@ const initializeDatabase = async () => {
 };
 
 // Define API routes
+// API root route
+app.get('/', (req, res) => res.send('E-commerce API running on port ' + PORT));
+// Mount auth routes
 app.use('/api/auth', authRoutes);
+// Mount product routes
 app.use('/api/products', productRoutes);
+// Mount cart routes
 app.use('/api/cart', cartRoutes);
 
 /**

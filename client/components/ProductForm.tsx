@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useRouter } from 'next/navigation'
 
 /**
  * Type for the ProductForm component props
@@ -29,6 +30,7 @@ type ProductFormProps = {
 export default function ProductForm({ initialProduct, handleSubmit, buttonText }: ProductFormProps) {
     // set the initial loading state to false
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     // create a form using react-hook-form
     // the form will be validated using the ProductSchema
@@ -50,7 +52,7 @@ export default function ProductForm({ initialProduct, handleSubmit, buttonText }
         // this is necessary to update the form values when the component is mounted
         // and the initialProduct prop is not empty for edit component
         form.reset(initialProduct)
-    }, [initialProduct])
+    }, [form, initialProduct])
 
     /**
      * Form submission handler
@@ -61,6 +63,11 @@ export default function ProductForm({ initialProduct, handleSubmit, buttonText }
         await handleSubmit(data, setLoading);
         form.reset();
     };
+
+    const handleCancel = () => {
+        form.reset();
+        router.back();
+    }
 
     return (
         <Form {...form}>
@@ -159,13 +166,17 @@ export default function ProductForm({ initialProduct, handleSubmit, buttonText }
                     )}
                 />
 
-                {/* Submit button */}
-                <Button>
-                    {/* Loading animation */}
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {/* Button text */}
-                    {buttonText}
-                </Button>
+                <div className='flex justify-start items-center gap-4 pt-4'>
+                    {/* Submit button */}
+                    <Button type='submit'>
+                        {/* Loading animation */}
+                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        {/* Button text */}
+                        {buttonText}
+                    </Button>
+                    {/* Cancel button. Resets the form and goes back to the previous page */}
+                    <Button type='button' variant="outline" onClick={handleCancel}>Cancel</Button>
+                </div>
             </form>
         </Form>
     )

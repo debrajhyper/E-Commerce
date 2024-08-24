@@ -6,6 +6,7 @@ import { apiClient } from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useFetchProducts } from '@/hooks/useFetch';
+import { Skeleton } from "@/components/ui/skeleton";
 import { ProductCount } from '@/components/ProductCount';
 import { API_CART_URL, API_DEFAULT_ERROR_MESSAGE } from '@/constants';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -19,7 +20,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
  * @returns {JSX.Element} The cart page component
  */
 export default function CartPage() {
-    const { dataArray, setDataArray } = useFetchProducts(API_CART_URL);
+    const { dataArray, setDataArray, loading } = useFetchProducts(API_CART_URL);
 
     /**
      * Function to remove an item from the cart
@@ -57,6 +58,15 @@ export default function CartPage() {
         return sum + parseFloat(item.price) * quantity;
     }, 0)
 
+    /**
+     * Handles the checkout process
+     * Shows a toast message with the total price and a success message
+     */
+    const handleCheckout = () => {
+        // show a toast message with the total price and a success message
+        toast({ title: `₹${totalPrice}`, description: "Purchase of above amount successful", variant: "destructive" });
+    }
+
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
@@ -72,34 +82,51 @@ export default function CartPage() {
                 </TableHeader>
                 <TableBody>
                     {
-                        dataArray.map((item: Product) => {
-                            const { name, price, quantity, id, description, category, discount, seller_id } = item;
-                            const customQuantity = quantity || 1;
-                            return (
-                                <TableRow key={id}>
-                                    <TableCell className="text-2xl font-bold">{name}</TableCell>
-                                    <TableCell>₹{price}</TableCell>
-                                    <TableCell>
-                                        <ProductCount
-                                            quantity={quantity}
-                                            onQuantityChange={(newQuantity: number) => updateQuantity(id, newQuantity)}
-                                        />
-                                    </TableCell>
-                                    <TableCell>₹{(parseFloat(item.price) * customQuantity).toFixed(2)}</TableCell>
-                                    <TableCell>
-                                        <Button variant="destructive" size="sm" onClick={() => removeItemFromCart(id)}>
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </TableCell>
+                        loading
+                            ? Array.from({ length: 5 }).map((_, index) =>
+                                <TableRow key={index}>
+                                    <TableCell className="w-fit py-3"><Skeleton className="h-6 w-56" /></TableCell>
+                                    <TableCell className="w-fit py-3"><Skeleton className="h-6 w-40" /></TableCell>
+                                    <TableCell className="w-fit py-3"><Skeleton className="h-6 w-32" /></TableCell>
+                                    <TableCell className="w-fit py-3"><Skeleton className="h-6 w-40" /></TableCell>
+                                    <TableCell className="w-fit py-3"><Skeleton className="h-10 w-10" /></TableCell>
                                 </TableRow>
                             )
-                        })
+                            : dataArray
+                                && dataArray?.length > 0
+                                ? dataArray.map((item: Product) => {
+                                    const { name, price, quantity, id } = item;
+                                    const customQuantity = quantity || 1;
+                                    return (
+                                        <TableRow key={id}>
+                                            <TableCell className="text-2xl font-bold">{name}</TableCell>
+                                            <TableCell>₹{price}</TableCell>
+                                            <TableCell>
+                                                <ProductCount
+                                                    quantity={quantity}
+                                                    onQuantityChange={(newQuantity: number) => updateQuantity(id, newQuantity)}
+                                                />
+                                            </TableCell>
+                                            <TableCell>₹{(parseFloat(item.price) * customQuantity).toFixed(2)}</TableCell>
+                                            <TableCell>
+                                                <Button title="Remove from cart" variant="destructive" size="sm" onClick={() => removeItemFromCart(id)}>
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })
+                                : <TableRow>
+                                    <TableCell colSpan={5} className="text-center">
+                                        Your cart is empty
+                                    </TableCell>
+                                </TableRow>
                     }
                 </TableBody>
             </Table>
             <div className="text-right mt-12">
                 <p className="text-xl font-semibold">Total: ₹{totalPrice.toFixed(2)}</p>
-                <Button className="mt-2">Proceed to Checkout</Button>
+                <Button className="mt-2" onClick={handleCheckout}>Proceed to Checkout</Button>
             </div>
         </div>
     );
