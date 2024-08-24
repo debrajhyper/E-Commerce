@@ -1,0 +1,20 @@
+├── .env
+├── config
+│  └── database.js
+├── controllers
+│  ├── authController.js
+│  ├── cartController.js
+│  └── productController.js
+├── middleware
+│  └── auth.js
+├── models
+│  ├── Cart.js
+│  ├── Product.js
+│  └── User.js
+├── package-lock.json
+├── package.json
+├── routes
+│  ├── auth.js
+│  ├── cart.js
+│  └── products.js
+└── serve.js
